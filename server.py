@@ -5,7 +5,7 @@ import httpx
 from bs4 import BeautifulSoup
 from mcp.server.fastmcp import FastMCP
 
-mcp = FastMCP("web-content-tools", json_response=True)
+mcp = FastMCP("web-content-tools", json_response=True, stateless_http=True)
 
 DEFAULT_HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; WebContentTools/1.0)"
