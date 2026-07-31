@@ -5,11 +5,12 @@ import httpx
 from bs4 import BeautifulSoup
 from mcp.server.fastmcp import FastMCP
 
-mcp = FastMCP("web-content-tools", json_response=True, stateless_http=True)
+mcp = FastMCP("web-content-tools", json_response=True)
 
 DEFAULT_HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; WebContentTools/1.0)"
 }
+
 
 def clean_text(html: str) -> str:
     soup = BeautifulSoup(html, "html.parser")
@@ -18,6 +19,7 @@ def clean_text(html: str) -> str:
     text = soup.get_text("\n", strip=True)
     lines = [line.strip() for line in text.splitlines()]
     return "\n".join(line for line in lines if line)
+
 
 @mcp.tool()
 def fetch_page(url: str, max_chars: int = 12000) -> dict:
@@ -45,6 +47,7 @@ def fetch_page(url: str, max_chars: int = 12000) -> dict:
         "links": links[:200],
     }
 
+
 @mcp.tool()
 def extract_metadata(url: str) -> dict:
     """Fetch a web page and return metadata only."""
@@ -66,6 +69,7 @@ def extract_metadata(url: str) -> dict:
         "title": soup.title.get_text(strip=True) if soup.title else "",
         "metadata": metadata,
     }
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
