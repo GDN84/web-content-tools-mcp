@@ -5,7 +5,7 @@ import httpx
 from bs4 import BeautifulSoup
 from mcp.server.fastmcp import FastMCP
 
-mcp = FastMCP("web-content-tools", json_response=True)
+mcp = FastMCP("web-content-tools")
 
 DEFAULT_HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; WebContentTools/1.0)"
@@ -23,7 +23,6 @@ def clean_text(html: str) -> str:
 
 @mcp.tool()
 def fetch_page(url: str, max_chars: int = 12000) -> dict:
-    """Fetch a web page and return title, clean text, and links."""
     with httpx.Client(timeout=20, follow_redirects=True, headers=DEFAULT_HEADERS) as client:
         response = client.get(url)
         response.raise_for_status()
@@ -50,7 +49,6 @@ def fetch_page(url: str, max_chars: int = 12000) -> dict:
 
 @mcp.tool()
 def extract_metadata(url: str) -> dict:
-    """Fetch a web page and return metadata only."""
     with httpx.Client(timeout=20, follow_redirects=True, headers=DEFAULT_HEADERS) as client:
         response = client.get(url)
         response.raise_for_status()
