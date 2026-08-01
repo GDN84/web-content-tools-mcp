@@ -5,7 +5,7 @@ import httpx
 from bs4 import BeautifulSoup
 from fastmcp import FastMCP
 
-mcp = FastMCP("web-content-tools")
+mcp = FastMCP("web-content-tools", host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
 
 DEFAULT_HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; WebContentTools/1.0)"
