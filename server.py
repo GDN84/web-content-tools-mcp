@@ -5,7 +5,7 @@ import httpx
 from bs4 import BeautifulSoup
 from fastmcp import FastMCP
 
-mcp = FastMCP("web-content-tools", host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
+mcp = FastMCP("web-content-tools")
 
 DEFAULT_HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; WebContentTools/1.0)"
@@ -67,4 +67,8 @@ def extract_metadata(url: str) -> dict:
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
-    mcp.run(transport="streamable-http", host="0.0.0.0", port=port)
+    mcp.run(
+        transport="streamable-http",
+        host="0.0.0.0",
+        port=port,
+    )
